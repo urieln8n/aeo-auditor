@@ -98,6 +98,8 @@ npm run web:deploy
 
 Después, en Cloudflare → Workers → aeo-auditor → Settings → Domains → `auditoria.andresrendon.com`.
 
+Despliegue automático: el Worker está conectado a este repo (Workers Builds). Cada push a `main` se publica solo; `npm run web:deploy` queda como plan B.
+
 - Contactos: `https://auditoria.andresrendon.com/api/leads?clave=TU_CLAVE` (CSV para Excel).
 - Brevo: lista #6 "Auditoría AEO - leads". Rellena NOMBRE, NEGOCIO, WEB, WA_NUMERO, NOTA_AEO, NIVEL_AEO,
   PROBLEMA_1..3 y ORIGEN. Solo falta el secreto `BREVO_API_KEY`.
