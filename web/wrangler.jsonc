@@ -1,5 +1,5 @@
 {
-  // Auditor AEO web: aeo.andresrendon.com
+  // Auditor AEO web: auditoria.andresrendon.com
   "name": "aeo-auditor",
   "main": "src/worker.mjs",
   "compatibility_date": "2026-11-01",
@@ -7,7 +7,7 @@
   "assets": { "directory": "./public", "binding": "ASSETS" },
   "d1_databases": [
     // Sustituye database_id por el que te da: npx wrangler d1 create aeo-auditor
-    { "binding": "DB", "database_name": "aeo-auditor", "database_id": "PON_AQUI_EL_ID_DE_D1" }
+    { "binding": "DB", "database_name": "aeo-auditor", "database_id": "ba48ce76-63cb-4f06-b007-7e23302ddc21" }
   ],
   "vars": {
     "MAX_PAGINAS": "3",
