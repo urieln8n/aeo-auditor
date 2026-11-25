@@ -4,17 +4,18 @@
   "main": "src/worker.mjs",
   "compatibility_date": "2026-11-01",
   "compatibility_flags": ["nodejs_compat"],
-  "assets": { "directory": "./public", "binding": "ASSETS" },
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": true },
   "d1_databases": [
     // Sustituye database_id por el que te da: npx wrangler d1 create aeo-auditor
     { "binding": "DB", "database_name": "aeo-auditor", "database_id": "ba48ce76-63cb-4f06-b007-7e23302ddc21" }
   ],
   "vars": {
     "MAX_PAGINAS": "3",
-    "LIMITE_DIA_IP": "10",
+    "LIMITE_DIA_IP": "40",
     "HORAS_CACHE": "12",
     "BREVO_LISTA": "6",
-    "BREVO_ATRIBUTO_NOMBRE": "NOMBRE"
+    "BREVO_ATRIBUTO_NOMBRE": "NOMBRE",
+    "REDIRIGIR_A": "https://andresrendon.com/auditoria-aeo"
   },
   "observability": { "enabled": true }
   // Secretos (npx wrangler secret put NOMBRE -c web/wrangler.jsonc):

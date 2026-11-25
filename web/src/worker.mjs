@@ -81,6 +81,9 @@ async function auditar(request, env) {
     ejes: ejes.map((e) => ({ id: e.id, nombre: PESOS[e.id].nombre, pregunta: PESOS[e.id].pregunta, peso: PESOS[e.id].peso, nota: e.nota })),
     principales: p.hallazgos.slice(0, 3).map((h) => ({ severidad: h.severidad, titulo: h.titulo, detalle: h.detalle, esfuerzo: h.esfuerzo })),
     resto: p.hallazgos.slice(3).map((h) => ({ severidad: h.severidad, titulo: h.titulo })),
+    // Lista completa para andresrendon.com/auditoria-aeo, que envía el informe entero por email
+    hallazgos: p.hallazgos.map((h) => ({ eje: h.eje, severidad: h.severidad, titulo: h.titulo, detalle: h.detalle, esfuerzo: h.esfuerzo })),
+    extra: { sitemap: rastreo.sitemap.encontrado, llmsTxt: rastreo.llms.presente, ttfb: home.ttfb ?? 0 },
     vistaIA: {
       palabras: home.A.palabras,
       enlaces: home.A.enlaces.length,
@@ -156,6 +159,8 @@ export default {
       if (pathname === '/api/lead' && request.method === 'POST') return await guardarLead(request, env);
       if (pathname === '/api/leads' && request.method === 'GET') return await listarLeads(request, env);
       if (pathname.startsWith('/api/')) return error('No encontrado', 404);
+      // La cara pública del auditor es andresrendon.com/auditoria-aeo: este Worker es el motor
+      if (env.REDIRIGIR_A) return Response.redirect(env.REDIRIGIR_A + new URL(request.url).search, 302);
       return env.ASSETS ? env.ASSETS.fetch(request) : new Response('No encontrado', { status: 404 });
     } catch (e) {
       console.error(e);
