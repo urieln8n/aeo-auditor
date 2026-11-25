@@ -63,6 +63,16 @@ export function informeHtml(a, { resumen = null } = {}) {
     ${ar.error ? `<p class="muted">${esc(ar.error)}</p>` : `<p><strong>Nivel ${esc(ar.nivel)}: ${esc(ar.nivelNombre)}</strong> · ${ar.pasan}/${ar.puntuables} comprobaciones superadas</p>`}
     </section>`;
 
+  const cf = a.cloudflare;
+  const ICO = { ok: ['✔', '#2ecc71'], falta: ['✖', '#ff4d4f'], aviso: ['!', '#f5c542'] };
+  const capa = !cf ? '' : `
+    <section><h2>Capa de agentes</h2>
+    <p class="muted">Lo que separa una web legible de una web preparada para agentes: responder en Markdown cuando un asistente lo pide y declarar para qué se puede usar el contenido. No cuenta para tu nota, pero es lo que permite pasar al nivel 3 del sello de Cloudflare.</p>
+    <div class="ab"><div><small>Cloudflare</small><b>${cf.detras ? 'Sí' : 'No'}</b><small>${cf.detras ? 'la web pasa por Cloudflare' : 'la web no pasa por Cloudflare'}</small></div>
+    <div><small>Markdown para agentes</small><b>${cf.markdown.ok ? 'Sí' : 'No'}</b><small>${cf.markdown.ok && cf.markdown.tokens ? `${cf.markdown.tokens} tokens frente a ~${cf.tokensHtmlEstimados} en HTML` : 'responde HTML aunque el agente pida Markdown'}</small></div></div>
+    ${cf.acciones.map((x) => `<article class="hz" style="--s:${ICO[x.estado][1]}"><div class="hz-top"><span class="sev">${ICO[x.estado][0]}</span></div><h3>${esc(x.titulo)}</h3><p>${esc(x.detalle)}</p>${x.como !== '—' ? `<p class="fix"><strong>Cómo:</strong> ${esc(x.como)}</p>` : ''}</article>`).join('')}
+    </section>`;
+
   const titular = render.perdidaGlobal >= 30
     ? `${render.perdidaGlobal}% de tu web no existe para la IA`
     : a.hallazgos.some((h) => h.severidad === 'critico') ? `${a.conteo.critico} bloqueo(s) crítico(s) impiden que la IA te lea`
@@ -115,6 +125,8 @@ ${crawlersHtml ? `<section><h2>¿Quién puede entrar en tu web?</h2>
 <div class="tabla"><table><thead><tr><th>Crawler</th><th>Tipo</th><th>Estado</th><th>Por qué importa</th></tr></thead><tbody>${crawlersHtml}</tbody></table></div></section>` : ''}
 
 ${paginasHtml ? `<section><h2>Página por página</h2><div class="tabla"><table><thead><tr><th>Página</th><th>Palabras IA</th><th>Palabras persona</th><th>Pérdida</th><th>Enlaces IA / persona</th></tr></thead><tbody>${paginasHtml}</tbody></table></div></section>` : ''}
+
+${capa}
 
 ${anexo}
 

@@ -7,6 +7,7 @@ import { rastrear } from './rastreador.mjs';
 import { servirCarpeta } from './servidor-local.mjs';
 import { puntuar, PESOS } from './puntuacion.mjs';
 import { agentReadiness } from './agent-readiness.mjs';
+import { revisarCloudflare } from './cloudflare.mjs';
 import { generarInformes } from './informe.mjs';
 
 const EJES = ['1-acceso-crawlers', '2-render-sin-js', '3-datos-estructurados', '4-estructura-respondible', '5-entidad-marca', '6-frescura', '7-indexacion', '8-acceso-tecnico'];
@@ -64,8 +65,12 @@ try {
   }
   const p = puntuar(ejes);
 
-  let ar = null;
-  if (o.agente && !local) { console.log('  consultando isitagentready.com…'); ar = await agentReadiness(url, rastreo.robots); }
+  let ar = null, cf = null;
+  if (o.agente) {
+    console.log('  revisando capa de agentes (Cloudflare, Markdown, Content Signals)…');
+    cf = await revisarCloudflare(rastreo.paginas.find((pg) => pg.A)?.url || url, rastreo.robots.texto);
+    if (!local) { console.log('  consultando isitagentready.com…'); ar = await agentReadiness(url, rastreo.robots); }
+  }
 
   const fecha = new Date().toISOString().slice(0, 10);
   const auditoria = {
@@ -75,6 +80,7 @@ try {
     ejes: ejes.map((e) => ({ ...e, peso: PESOS[e.id].peso })),
     hallazgos: p.hallazgos,
     rastreo: { ...rastreo, paginas: rastreo.paginas.map((pg) => (pg.A ? { ...pg, A: { ...pg.A, jsonld: undefined }, B: pg.B ? { ...pg.B, jsonld: undefined, enlaces: pg.B.enlaces.length } : null } : pg)) },
+    cloudflare: cf,
     agentReadiness: ar,
     citas: null, // fase 2
   };
@@ -88,6 +94,7 @@ try {
 
   console.log(`\n  Nota global: ${p.global}/100 (${p.banda})`);
   for (const e of ejes) console.log(`   ${String(e.nota ?? '—').padStart(3)}  ${PESOS[e.id].nombre}`);
+  if (cf) console.log(`  Capa de agentes: ${cf.detras ? 'en Cloudflare' : 'sin Cloudflare'} · Markdown ${cf.markdown.ok ? 'sí' : 'no'} · Content Signals ${cf.contentSignals.length ? 'sí' : 'no'}`);
   console.log(`  Hallazgos: ${p.conteo.critico} críticos · ${p.conteo.alto} altos · ${p.conteo.medio} medios · ${p.conteo.bajo} bajos`);
   console.log(`\n  JSON:    ${rutaJson}\n  Interno: ${md}\n  Cliente: ${html}\n`);
 } finally {

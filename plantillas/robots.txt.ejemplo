@@ -23,6 +23,8 @@ Allow: /
 # Disallow: /
 
 User-agent: *
+# Para qué se puede usar el contenido: buscar y responder sí; entrenar lo decide el cliente.
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 
 Sitemap: https://TU-DOMINIO.com/sitemap.xml

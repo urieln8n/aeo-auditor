@@ -67,6 +67,16 @@ No puntúa. Si su veredicto de robots.txt discrepa del eje 1 (`contrasteEje1.dis
 cortafuegos filtrando por origen. Nivel 3 exige negociación de contenido en Markdown: un
 cliente en Wix/Squarespace/Framer no puede pasar del nivel 2.
 
+## Anexo capa de agentes (src/cloudflare.mjs)
+
+No puntúa. Mira si la web pasa por Cloudflare, si responde Markdown ante `Accept: text/markdown`
+(muro del nivel 3) y qué Content Signals declara. No suplanta bots: Cloudflare verifica bots
+por IP y un user agent falso daría bloqueos que el bot real no sufre. Los controles
+Search/Agent/Training del panel no se ven desde fuera: se revisan con el cliente.
+
+Venta: las webs de Andrés ya están en Cloudflare → activar Markdown for Agents, Search y Agent
+en Allow y `Content-Signal: search=yes, ai-input=yes`, y volver a auditar para enseñar el salto.
+
 ## Fase 2 (preparada, no construida)
 
 `src/citas/interfaz.mjs`: medir si los modelos citan al cliente. Perplexity primero. Ejecutar

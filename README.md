@@ -69,6 +69,16 @@ npm run auditar -- ejemplo/sin-ssr --cliente prueba-sin-ssr     # ~28/100, 100 %
 
 Bandas: 85 excelente · 70 bueno · 50 mejorable · por debajo, crítico.
 
+## Anexo: capa de agentes (Cloudflare)
+
+Cada auditoría mira también, sin que cuente para la nota:
+- si la web pasa por **Cloudflare**,
+- si responde en **Markdown** cuando un agente lo pide (`Accept: text/markdown`), que es el muro del nivel 3 del sello de Cloudflare,
+- qué **Content Signals** declara en robots.txt (`search`, `ai-input`, `ai-train`),
+- si Cloudflare pone un desafío a los visitantes automáticos.
+
+Y propone las acciones concretas en el informe. Se desactiva con `--sin-agente`.
+
 ## Cambiar la marca
 
 Todo lo visible está en `marca.json` (nombre, empresa, web, colores, tipografías). Si lo borras,

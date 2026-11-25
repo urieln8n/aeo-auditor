@@ -20,6 +20,12 @@ export function informeMd(a) {
     for (const c of e.checks) r.push(`- ${c.obtenidos >= c.puntos ? '✅' : c.obtenidos > 0 ? '🟨' : '❌'} ${c.nombre} (${c.obtenidos}/${c.puntos})`);
     r.push('');
   }
+  if (a.cloudflare) {
+    const c = a.cloudflare;
+    r.push('## Anexo · Capa de agentes (Cloudflare) — no puntúa', '', `- Cloudflare: ${c.detras ? `sí (cf-ray ${c.cfRay})` : 'no'}${c.desafio ? ' · ⚠️ desafío a visitantes automáticos' : ''}`, `- Markdown ante Accept: text/markdown: ${c.markdown.ok ? `sí (${c.markdown.tokens ?? '?'} tokens; HTML ~${c.tokensHtmlEstimados})` : `no (${c.markdown.contentType})`}`, `- Content Signals: ${c.contentSignals.map((s) => s.linea).join(' | ') || c.cabeceraContentSignal || 'ninguna'}`, '');
+    for (const x of c.acciones) r.push(`- ${x.estado === 'ok' ? '✅' : x.estado === 'aviso' ? '⚠️' : '❌'} **${x.titulo}**: ${x.detalle}${x.como !== '—' ? ` → ${x.como}` : ''}`);
+    r.push('');
+  }
   if (a.agentReadiness) {
     r.push('## Anexo · isitagentready.com (no puntúa)', '');
     if (a.agentReadiness.error) r.push(`- ${a.agentReadiness.error}`);
