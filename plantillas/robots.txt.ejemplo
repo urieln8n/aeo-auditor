@@ -1,0 +1,28 @@
+# robots.txt recomendado para AEO
+# Los de BÚSQUEDA y AGENTE deben poder entrar: son los que hacen que la IA te cite.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Los de ENTRENAMIENTO son decisión del cliente. Bloquearlos NO te saca de las respuestas.
+# User-agent: GPTBot
+# Disallow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://TU-DOMINIO.com/sitemap.xml

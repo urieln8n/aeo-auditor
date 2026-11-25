@@ -1,0 +1,10 @@
+{
+  "acceso-crawlers":        { "peso": 20, "nombre": "Acceso de los crawlers de IA", "pregunta": "¿Puede la IA llegar a la web?" },
+  "render-sin-js":          { "peso": 20, "nombre": "Lectura sin JavaScript", "pregunta": "¿Puede leer lo que hay dentro?" },
+  "datos-estructurados":    { "peso": 18, "nombre": "Datos estructurados", "pregunta": "¿Entiende qué es y qué vende?" },
+  "estructura-respondible": { "peso": 15, "nombre": "Estructura respondible", "pregunta": "¿Puede extraer y citar párrafos?" },
+  "entidad-marca":          { "peso": 10, "nombre": "Entidad y marca", "pregunta": "¿Sabe quién es y se fía?" },
+  "frescura":               { "peso": 7,  "nombre": "Frescura", "pregunta": "¿Puede fechar y atribuir?" },
+  "indexacion":             { "peso": 5,  "nombre": "Indexación básica", "pregunta": "¿Está la base del SEO en orden?" },
+  "acceso-tecnico":         { "peso": 5,  "nombre": "Acceso técnico", "pregunta": "¿Responde rápido para un crawler?" }
+}

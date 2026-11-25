@@ -1,0 +1,9 @@
+{
+  "nombre": "Auditoría IA",
+  "empresa": "Andrés AI Studio",
+  "web": "https://andresrendon.com",
+  "instagram": "@andresrendon.ai",
+  "colores": { "fondo": "#0d0f12", "acento": "#ff5a36", "texto": "#eef1f4" },
+  "tipografias": { "titulares": "Inter", "cuerpo": "Inter" },
+  "idioma": "es-ES"
+}

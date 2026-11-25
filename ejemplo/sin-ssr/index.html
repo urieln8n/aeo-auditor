@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Cargando…</title></head>
+<body><div id="app"></div>
+<script>
+// Simula una web hecha con un framework sin SSR: todo el contenido llega por JavaScript.
+document.title = 'Pizzería Ejemplo · Pizzas artesanas';
+document.getElementById('app').innerHTML = `
+  <nav><a href="/carta">Carta</a> · <a href="/contacto">Contacto</a></nav>
+  <h1>Pizzería Ejemplo, pizza napolitana en Barcelona</h1>
+  <p>Hacemos pizza napolitana con masa de 48 horas de fermentación, horno de leña a 450 grados y tomate San Marzano. Abrimos todos los días de 13:00 a 16:00 y de 20:00 a 23:30, y también preparamos pedidos para llevar y para eventos privados en el local.</p>
+  <h2>¿Cuánto cuesta una pizza?</h2>
+  <p>La margarita cuesta 9,50 €, la diavola 12 € y la de trufa 15 €. Todas las pizzas se pueden pedir sin gluten por 2 € más, y los martes el menú de pizza con bebida sale por 11 €.</p>
+  <h2>Preguntas frecuentes</h2>
+  <p>Aceptamos reservas para grupos de hasta 20 personas y tenemos terraza climatizada en invierno. Llámanos para reservar y te confirmamos la mesa en el momento.</p>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"Pizzería Ejemplo"}<\/script>`;
+const s = document.createElement('script'); s.type='application/ld+json'; s.textContent='{"@context":"https://schema.org","@type":"Restaurant","name":"Pizzería Ejemplo"}'; document.head.appendChild(s);
+</script></body></html>
