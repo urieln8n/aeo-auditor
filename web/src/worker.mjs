@@ -109,17 +109,26 @@ async function guardarLead(request, env) {
   if (!nombre) return error('Dime tu nombre.');
   if (!RE_EMAIL.test(email)) return error('Ese email no parece correcto.');
   if (c.consentimiento !== true) return error('Necesito tu permiso para escribirte con el informe.');
-  let url = null, nota = null;
+  let url = null, nota = null, banda = null, problemas = [];
   if (env.DB && c.auditoriaId) {
-    const a = await env.DB.prepare('SELECT url, nota FROM auditorias WHERE id = ?').bind(limpio(c.auditoriaId, 40)).first();
-    if (a) ({ url, nota } = a);
+    const a = await env.DB.prepare('SELECT url, nota, resultado FROM auditorias WHERE id = ?').bind(limpio(c.auditoriaId, 40)).first();
+    if (a) {
+      ({ url, nota } = a);
+      try { const r = JSON.parse(a.resultado); banda = r.banda; problemas = r.principales.map((h) => h.titulo); } catch {}
+    }
   }
   let enviado = 0;
   if (env.BREVO_API_KEY && env.BREVO_LISTA) {
     const r = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers: { 'api-key': env.BREVO_API_KEY, 'content-type': 'application/json', accept: 'application/json' },
-      body: JSON.stringify({ email, listIds: [Number(env.BREVO_LISTA)], updateEnabled: true, attributes: { [env.BREVO_ATRIBUTO_NOMBRE || 'FIRSTNAME']: nombre } }),
+      body: JSON.stringify({ email, listIds: [Number(env.BREVO_LISTA)], updateEnabled: true, attributes: Object.fromEntries(Object.entries({
+        [env.BREVO_ATRIBUTO_NOMBRE || 'FIRSTNAME']: nombre,
+        NEGOCIO: negocio, WEB: url, WA_NUMERO: telefono,
+        NOTA_AEO: nota != null ? String(nota) : '', NIVEL_AEO: banda || '',
+        PROBLEMA_1: problemas[0] || '', PROBLEMA_2: problemas[1] || '', PROBLEMA_3: problemas[2] || '',
+        ORIGEN: 'auditoria.andresrendon.com',
+      }).filter(([, v]) => v)) }),
     }).catch(() => null);
     enviado = r && (r.ok || r.status === 204) ? 1 : 0;
   }

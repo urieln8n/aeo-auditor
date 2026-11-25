@@ -99,8 +99,8 @@ npm run web:deploy
 Después, en Cloudflare → Workers → aeo-auditor → Settings → Domains → `auditoria.andresrendon.com`.
 
 - Contactos: `https://auditoria.andresrendon.com/api/leads?clave=TU_CLAVE` (CSV para Excel).
-- Brevo (opcional): secretos `BREVO_API_KEY` y `BREVO_LISTA` (id de la lista). Si tu cuenta usa
-  el atributo `NOMBRE` en vez de `FIRSTNAME`, añade la variable `BREVO_ATRIBUTO_NOMBRE`.
+- Brevo: lista #6 "Auditoría AEO - leads". Rellena NOMBRE, NEGOCIO, WEB, WA_NUMERO, NOTA_AEO, NIVEL_AEO,
+  PROBLEMA_1..3 y ORIGEN. Solo falta el secreto `BREVO_API_KEY`.
 - Límites: 10 auditorías por persona y día; el mismo dominio se cachea 12 h (en `vars`).
 - Enlace directo para mensajes: `https://auditoria.andresrendon.com/?url=su-web.com`.
 - En local: `npm run web:dev` (añade `--var ALLOW_LOCAL:1` para auditar webs de 127.0.0.1).

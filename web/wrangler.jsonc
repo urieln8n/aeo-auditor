@@ -12,12 +12,13 @@
   "vars": {
     "MAX_PAGINAS": "3",
     "LIMITE_DIA_IP": "10",
-    "HORAS_CACHE": "12"
+    "HORAS_CACHE": "12",
+    "BREVO_LISTA": "6",
+    "BREVO_ATRIBUTO_NOMBRE": "NOMBRE"
   },
   "observability": { "enabled": true }
   // Secretos (npx wrangler secret put NOMBRE -c web/wrangler.jsonc):
   //   SAL            texto aleatorio para anonimizar IPs (obligatorio)
   //   CLAVE_ADMIN    para descargar los contactos en /api/leads?clave=...
   //   BREVO_API_KEY  opcional: manda cada contacto a Brevo
-  //   BREVO_LISTA    opcional: id numérico de la lista de Brevo
 }
