@@ -1,5 +1,5 @@
 // Extrae de un HTML todo lo que necesitan los ejes. Se usa igual en la pasada A (crudo) y la B (render).
-import * as cheerio from 'cheerio';
+import * as cheerio from 'cheerio/slim';
 
 const RE_PRECIO = /(?:\d{1,3}(?:[.\s]\d{3})*|\d+)(?:,\d{1,2})?\s?€|€\s?\d+(?:[.,]\d{1,2})?/g;
 const RE_TEL_ES = /(?:\+34[\s.-]?)?(?:[6789]\d{2})[\s.-]?\d{3}[\s.-]?\d{3}\b/g;

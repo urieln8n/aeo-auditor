@@ -23,7 +23,7 @@ export async function pedir(url, { ua = UA_AUDITOR, headers = {}, metodo = 'GET'
     return {
       url, urlFinal: res.url, status: res.status, ok: res.ok, redirigida: res.redirected,
       headers: Object.fromEntries(res.headers.entries()),
-      cuerpo, bytes: Buffer.byteLength(cuerpo), ttfb, totalMs: Math.round(performance.now() - t0),
+      cuerpo, bytes: new TextEncoder().encode(cuerpo).length, ttfb, totalMs: Math.round(performance.now() - t0),
     };
   } catch (e) {
     return { url, status: 0, ok: false, error: e.name === 'AbortError' ? 'timeout' : e.message, headers: {}, cuerpo: '', bytes: 0, ttfb: null };

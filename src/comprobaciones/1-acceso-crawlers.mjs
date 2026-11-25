@@ -1,9 +1,8 @@
-import { readFileSync } from 'node:fs';
+import CRAWLERS from '../../reglas/crawlers-ia.json' with { type: 'json' };
 import { permitido, reglaQueDecide } from '../robots.mjs';
 import { pedir } from '../http.mjs';
 import { nuevoEje, portada } from './_eje.mjs';
 
-const CRAWLERS = JSON.parse(readFileSync(new URL('../../reglas/crawlers-ia.json', import.meta.url)));
 
 export async function evaluar({ rastreo, opciones }) {
   const e = nuevoEje('acceso-crawlers');

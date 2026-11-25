@@ -1,6 +1,6 @@
-import { readFileSync } from 'node:fs';
+import PESOS_JSON from '../reglas/pesos.json' with { type: 'json' };
 
-export const PESOS = JSON.parse(readFileSync(new URL('../reglas/pesos.json', import.meta.url)));
+export const PESOS = PESOS_JSON;
 const ORDEN_SEV = { critico: 0, alto: 1, medio: 2, bajo: 3 };
 
 export function banda(n) {

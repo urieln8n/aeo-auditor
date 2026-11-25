@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Te puede recomendar ChatGPT? · Auditoría IA gratis · Andrés AI Studio</title>
+<meta name="description" content="Comprueba gratis en 30 segundos si ChatGPT, Perplexity, Claude y Gemini pueden leer y recomendar la web de tu negocio. Nota de 0 a 100 y los 3 fallos que más te cuestan.">
+<link rel="canonical" href="https://aeo.andresrendon.com/">
+<meta property="og:title" content="¿Te puede recomendar ChatGPT? Auditoría IA gratis">
+<meta property="og:description" content="Mete tu web y mira qué ve la IA de tu negocio. Nota de 0 a 100 en 30 segundos.">
+<meta name="theme-color" content="#0d0f12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff5a36'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='%230d0f12'%3EIA%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Auditoría IA gratis","url":"https://aeo.andresrendon.com/","applicationCategory":"BusinessApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"inLanguage":"es-ES","creator":{"@id":"https://andresrendon.com/#andres"},"dateModified":"2026-11-25"},{"@type":"Person","@id":"https://andresrendon.com/#andres","name":"Andrés Rendón","url":"https://andresrendon.com","sameAs":["https://www.instagram.com/andresrendon.ai"]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Qué es la optimización para buscadores de IA (AEO)?","acceptedAnswer":{"@type":"Answer","text":"Es preparar una web para que asistentes como ChatGPT, Perplexity, Claude o Gemini puedan leerla, entenderla y citarla cuando alguien les pregunta. El SEO buscaba salir en Google; el AEO busca que el asistente pueda recomendarte."}},{"@type":"Question","name":"¿Por qué mi web puede salir bien en Google y no en ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"Google ejecuta JavaScript antes de leer una página; los crawlers de ChatGPT, Perplexity o Claude no. Si tu web se construye con JavaScript, para ellos puede estar casi vacía aunque una persona la vea perfecta."}},{"@type":"Question","name":"¿Me garantizas salir en ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"No. Nadie controla qué cita un modelo de IA. Lo que se puede medir y mejorar son las condiciones: que tu web se pueda leer, entender y citar."}}]}]}</script>
+<style>
+:root{--f:#0d0f12;--f2:#15181d;--f3:#1c2027;--a:#ff5a36;--t:#eef1f4;--s:#9aa4ae;--l:#262b33;--ok:#2ecc71;--mal:#ff4d4f;--med:#f5c542}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--f);color:var(--t);font:17px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-wrap:anywhere}
+a{color:var(--a)}h1,h2,h3{line-height:1.12;letter-spacing:-.01em;margin:0}
+.w{max-width:980px;margin:auto;padding:0 20px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:14px;color:var(--s)}
+header.top b{color:var(--t)}header.top a{color:var(--s);text-decoration:none}
+.hero{padding:46px 0 30px;display:grid;gap:22px}
+.chip{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--a)}
+.hero h1{font-size:clamp(34px,6.4vw,64px);font-weight:800;max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--a)}
+.hero p.sub{font-size:clamp(17px,2.2vw,20px);color:#c9d0d6;max-width:58ch;margin:0}
+form.buscar{display:flex;gap:10px;flex-wrap:wrap;background:var(--f2);border:1px solid var(--l);border-radius:16px;padding:10px;max-width:640px}
+form.buscar input{flex:1 1 240px;min-width:0;background:transparent;border:0;color:var(--t);font:inherit;font-size:18px;padding:12px 10px;outline:none}
+.btn{background:var(--a);color:#0d0f12;border:0;border-radius:12px;font:inherit;font-weight:800;font-size:17px;padding:14px 22px;cursor:pointer;white-space:nowrap}
+.btn:disabled{opacity:.55;cursor:wait}.btn:focus-visible,input:focus-visible{outline:3px solid var(--a);outline-offset:2px}
+.nota-legal{font-size:13px;color:var(--s);margin:0}
+.error{background:#3a1717;border:1px solid var(--mal);border-radius:12px;padding:12px 14px;max-width:640px}
+.pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px 0 10px}
+.pasos div{background:var(--f2);border:1px solid var(--l);border-radius:14px;padding:18px}
+.pasos b{display:block;font-size:30px;color:var(--a);line-height:1}.pasos h3{font-size:18px;margin:10px 0 6px}.pasos p{margin:0;color:var(--s);font-size:15px}
+/* cargando */
+.cargando{display:none;margin:30px 0;background:var(--f2);border:1px solid var(--l);border-radius:16px;padding:22px}
+.cargando.on{display:block}.cargando ol{margin:10px 0 0;padding-left:22px;color:var(--s)}.cargando li.hecho{color:var(--t)}.cargando li.hecho::marker{color:var(--ok)}
+.barra{height:6px;background:var(--l);border-radius:9px;overflow:hidden;margin-top:14px}.barra i{display:block;height:100%;width:0;background:var(--a);transition:width .6s}
+/* resultado */
+#resultado{display:none;padding:10px 0 30px}#resultado.on{display:block}
+.res-top{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin:24px 0}
+.res-top h2{font-size:clamp(26px,4.4vw,40px);font-weight:800;max-width:22ch}.res-top .meta{color:var(--s);margin-top:8px}
+.banda{display:inline-block;padding:3px 10px;border-radius:99px;font-size:13px;font-weight:800;text-transform:uppercase;color:#0d0f12;margin-bottom:8px}
+.ve{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0 26px}
+.ve div{background:var(--f2);border:1px solid var(--l);border-radius:14px;padding:14px}.ve small{color:var(--s);font-size:13px}.ve b{display:block;font-size:26px;margin:4px 0 0}
+h3.sec{font-size:20px;margin:28px 0 12px;border-left:4px solid var(--a);padding-left:10px}
+.eje{display:grid;grid-template-columns:minmax(150px,250px) 1fr 40px;gap:12px;align-items:center;margin:9px 0;font-size:15px}
+.eje small{display:block;color:var(--s);font-size:12.5px}.bar{height:9px;background:var(--l);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%}
+.hz{border:1px solid var(--l);border-left:5px solid var(--c);border-radius:12px;padding:14px 16px;margin:12px 0;background:var(--f2)}
+.hz .sev{display:inline-block;background:var(--c);color:#0d0f12;border-radius:6px;padding:1px 8px;font-weight:800;font-size:12px}
+.hz h4{margin:8px 0 6px;font-size:18px}.hz p{margin:0;color:#c9d0d6;font-size:15.5px}.hz .esf{color:var(--s);font-size:13px;margin-top:6px}
+.resto{position:relative}.resto ul{list-style:none;padding:0;margin:0;filter:blur(4px);user-select:none;pointer-events:none}
+.resto li{background:var(--f2);border:1px solid var(--l);border-radius:10px;padding:10px 14px;margin:8px 0}
+.resto .tapa{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px}
+.resto .tapa span{background:var(--f3);border:1px solid var(--l);border-radius:12px;padding:10px 14px;font-weight:700}
+/* formulario */
+.lead{background:linear-gradient(180deg,#1d1310,#15181d);border:1px solid #4a2a20;border-radius:18px;padding:22px;margin-top:28px}
+.lead h3{font-size:24px}.lead p{color:#c9d0d6;margin:8px 0 16px}
+.lead form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lead label{display:grid;gap:5px;font-size:14px;color:var(--s)}
+.lead input[type=text],.lead input[type=email],.lead input[type=tel]{background:var(--f);border:1px solid var(--l);border-radius:10px;color:var(--t);font:inherit;padding:12px}
+.lead .full{grid-column:1/-1}.lead .check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#c9d0d6}
+.lead .check input{margin-top:4px;width:18px;height:18px;accent-color:var(--a)}
+.oculto{position:absolute;left:-9999px}
+.gracias{display:none;background:#12301d;border:1px solid var(--ok);border-radius:14px;padding:18px;margin-top:14px}
+/* faq */
+.faq{margin:50px 0 20px}.faq details{border-bottom:1px solid var(--l);padding:14px 0}.faq summary{cursor:pointer;font-weight:700;font-size:18px}.faq p{color:#c9d0d6;margin:10px 0 0}
+footer{border-top:1px solid var(--l);margin-top:40px;padding:22px 0 40px;color:var(--s);font-size:14px}footer a{color:var(--s)}
+@media(max-width:720px){.pasos{grid-template-columns:1fr}.ve{grid-template-columns:1fr 1fr}.lead form{grid-template-columns:1fr}.eje{grid-template-columns:1fr 40px}.eje .bar{grid-column:1/-1;grid-row:2}form.buscar .btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="w">
+  <header class="top"><b>Andrés AI Studio</b><a href="https://www.instagram.com/andresrendon.ai" rel="noopener">@andresrendon.ai</a></header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <span class="chip">Auditoría IA · gratis</span>
+      <h1>¿Te puede <em>recomendar ChatGPT</em>?</h1>
+      <p class="sub">Cada vez más clientes preguntan a ChatGPT, Perplexity o Gemini en vez de buscar en Google. Solo te pueden recomendar si pueden leer tu web. Mira en 30 segundos lo que ve la IA de tu negocio.</p>
+      <form class="buscar" id="f-buscar" novalidate>
+        <label class="oculto" for="url">Dirección de tu web</label>
+        <input id="url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="tunegocio.com" required>
+        <button class="btn" id="b-buscar" type="submit">Analizar mi web</button>
+      </form>
+      <p class="nota-legal">Solo leo tu web pública, igual que lo haría un buscador. Sin registro.</p>
+      <div class="error" id="error" role="alert" hidden></div>
+    </section>
+
+    <section class="cargando" id="cargando" aria-live="polite">
+      <b>Analizando tu web como la ve la IA…</b>
+      <ol id="pasos-carga">
+        <li>¿Pueden entrar los crawlers de ChatGPT, Perplexity y Claude?</li>
+        <li>Leyendo tu web sin JavaScript, como un crawler de IA</li>
+        <li>Buscando datos estructurados: qué eres y qué vendes</li>
+        <li>Preguntas, párrafos citables, fechas y marca</li>
+        <li>Calculando tu nota</li>
+      </ol>
+      <div class="barra"><i id="barra"></i></div>
+    </section>
+
+    <section id="resultado" aria-live="polite"></section>
+
+    <section class="pasos" id="como">
+      <div><b>1</b><h3>Mira lo que ve la IA</h3><p>Leo tu web sin ejecutar JavaScript, exactamente como lo hacen los crawlers de ChatGPT, Perplexity y Claude.</p></div>
+      <div><b>2</b><h3>8 ejes, una nota</h3><p>Acceso de los crawlers, lectura sin JavaScript, datos estructurados, preguntas, marca, fechas y técnica.</p></div>
+      <div><b>3</b><h3>Te digo qué arreglar</h3><p>Los fallos ordenados por gravedad y lo que cuesta arreglar cada uno, en tiempo real de trabajo.</p></div>
+    </section>
+
+    <section class="faq">
+      <h2>Preguntas frecuentes</h2>
+      <details><summary>¿Qué es la optimización para buscadores de IA (AEO)?</summary><p>Es preparar una web para que asistentes como ChatGPT, Perplexity, Claude o Gemini puedan leerla, entenderla y citarla cuando alguien les pregunta. El SEO buscaba salir en Google; el AEO busca que el asistente pueda recomendarte.</p></details>
+      <details><summary>¿Por qué mi web puede salir bien en Google y no en ChatGPT?</summary><p>Google ejecuta JavaScript antes de leer una página; los crawlers de ChatGPT, Perplexity o Claude no. Si tu web se construye con JavaScript, para ellos puede estar casi vacía aunque una persona la vea perfecta.</p></details>
+      <details><summary>¿Qué incluye el informe completo?</summary><p>La doble pasada: tu web leída sin JavaScript y con un navegador completo, página por página, con la prueba de cada fallo, lo que cuesta arreglarlo y el estado de tu web en Cloudflare. Te lo envío por email y, si quieres, lo vemos juntos en 15 minutos.</p></details>
+      <details><summary>¿Me garantizas salir en ChatGPT?</summary><p>No. Nadie controla qué cita un modelo de IA, y desconfía de quien te lo prometa. Lo que sí se puede medir y mejorar son las condiciones: que tu web se pueda leer, entender y citar.</p></details>
+    </section>
+  </main>
+
+  <footer>
+    Hecho por <a href="https://andresrendon.com">Andrés Rendón</a> · Andrés AI Studio · <a href="https://www.instagram.com/andresrendon.ai">Instagram</a> · <a href="/privacidad">Privacidad</a><br>
+    Actualizado el <time datetime="2026-11-25">25 de noviembre de 2026</time>.
+  </footer>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const SEV = { critico: ['Crítico', '#ff4d4f'], alto: ['Alto', '#ff9f43'], medio: ['Medio', '#f5c542'], bajo: ['Bajo', '#8a94a0'] };
+const color = (n) => n == null ? '#666' : n >= 85 ? '#2ecc71' : n >= 70 ? '#9ad14b' : n >= 50 ? '#f5c542' : '#ff4d4f';
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+let auditoriaId = null, urlActual = '';
+
+function anillo(n) {
+  const r = 52, c = 2 * Math.PI * r, v = (n ?? 0) / 100;
+  return `<svg viewBox="0 0 120 120" width="140" height="140" role="img" aria-label="Nota ${n} de 100"><circle cx="60" cy="60" r="${r}" fill="none" stroke="#262b33" stroke-width="10"/><circle cx="60" cy="60" r="${r}" fill="none" stroke="${color(n)}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${c * v} ${c}" transform="rotate(-90 60 60)"/><text x="60" y="68" text-anchor="middle" font-size="32" font-weight="800" fill="#eef1f4">${n ?? '—'}</text></svg>`;
+}
+
+function titular(r) {
+  if (r.vistaIA.palabras < 50) return `La IA solo lee ${r.vistaIA.palabras} palabras de tu web`;
+  if (r.vistaIA.crawlersBloqueados.length) return `Bloqueas a ${r.vistaIA.crawlersBloqueados.slice(0, 2).join(' y ')}: no te pueden citar`;
+  if (r.nota >= 85) return 'Tu web está muy bien preparada para la IA';
+  if (r.nota >= 70) return 'Tu web se lee bien, pero la IA no lo entiende todo';
+  return 'La IA tiene problemas para leer y entender tu web';
+}
+
+function pintar(r) {
+  const ejes = r.ejes.map((e) => `<div class="eje"><div><b>${esc(e.nombre)}</b><small>${esc(e.pregunta)}</small></div><div class="bar"><i style="width:${e.nota ?? 0}%;background:${color(e.nota)}"></i></div><b>${e.nota ?? '—'}</b></div>`).join('');
+  const princ = r.principales.map((h) => `<article class="hz" style="--c:${SEV[h.severidad][1]}"><span class="sev">${SEV[h.severidad][0]}</span><h4>${esc(h.titulo)}</h4><p>${esc(h.detalle)}</p><div class="esf">Arreglarlo: ${esc(h.esfuerzo)}</div></article>`).join('') || '<p>No he encontrado fallos importantes. ¡Bien hecho!</p>';
+  const resto = r.resto.length ? `<h3 class="sec">${r.resto.length} cosa(s) más que mejorar</h3><div class="resto"><ul>${r.resto.map((h) => `<li>${SEV[h.severidad][0]} · ${esc(h.titulo)}</li>`).join('')}</ul><div class="tapa"><span>Están en el informe completo ↓</span></div></div>` : '';
+  const capa = r.capaAgentes ? `<div><small>Markdown para agentes</small><b>${r.capaAgentes.markdown ? 'Sí' : 'No'}</b></div>` : '';
+  $('#resultado').innerHTML = `
+    <div class="res-top">${anillo(r.nota)}<div><span class="banda" style="background:${color(r.nota)}">${esc(r.banda)}</span><h2>${esc(titular(r))}</h2><div class="meta">${esc(r.dominio)} · ${r.vistaIA.paginas} página(s) leídas sin JavaScript${r.cache ? ' · resultado de las últimas horas' : ''}</div></div></div>
+    <div class="ve"><div><small>Palabras que lee la IA en tu portada</small><b>${r.vistaIA.palabras.toLocaleString('es-ES')}</b></div><div><small>Enlaces que puede seguir</small><b>${r.vistaIA.enlaces}</b></div><div><small>Datos estructurados</small><b>${r.vistaIA.datosEstructurados.length ? 'Sí' : 'No'}</b></div>${capa || `<div><small>Crawlers de IA bloqueados</small><b>${r.vistaIA.crawlersBloqueados.length}</b></div>`}</div>
+    <h3 class="sec">Lo que más te está costando</h3>${princ}
+    ${resto}
+    <h3 class="sec">Tu nota, eje por eje</h3>${ejes}
+    <div class="lead" id="lead">
+      <h3>Recibe el informe completo, gratis</h3>
+      <p>Te envío la doble pasada (lo que ve la IA frente a lo que ve una persona), página por página, con la prueba de cada fallo y lo que cuesta arreglarlo. Si quieres, lo vemos juntos en 15 minutos.</p>
+      <form id="f-lead" novalidate>
+        <label>Nombre<input type="text" name="nombre" autocomplete="given-name" required></label>
+        <label>Email<input type="email" name="email" autocomplete="email" required></label>
+        <label>Negocio<input type="text" name="negocio" autocomplete="organization"></label>
+        <label>WhatsApp (opcional)<input type="tel" name="telefono" autocomplete="tel"></label>
+        <label class="oculto">No rellenar<input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+        <label class="check full"><input type="checkbox" name="consentimiento" required><span>Acepto que Andrés Rendón use estos datos para enviarme el informe y contactarme sobre él. Puedo pedir que los borre cuando quiera. <a href="/privacidad" target="_blank">Privacidad</a></span></label>
+        <button class="btn full" type="submit">Quiero el informe completo</button>
+        <div class="error full" id="error-lead" role="alert" hidden></div>
+      </form>
+      <div class="gracias" id="gracias" role="status"><b>¡Hecho!</b> Te escribo en menos de 24 horas con el informe completo de ${esc(r.dominio)}.</div>
+    </div>`;
+  $('#resultado').classList.add('on');
+  $('#f-lead').addEventListener('submit', enviarLead);
+  $('#resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+let animacion;
+function cargando(on) {
+  const caja = $('#cargando'), items = [...document.querySelectorAll('#pasos-carga li')];
+  caja.classList.toggle('on', on); clearInterval(animacion);
+  items.forEach((li) => li.classList.remove('hecho')); $('#barra').style.width = '0';
+  if (!on) return;
+  let i = 0;
+  animacion = setInterval(() => { if (i < items.length - 1) { items[i].classList.add('hecho'); i++; $('#barra').style.width = `${(i / items.length) * 100}%`; } }, 2200);
+}
+
+$('#f-buscar').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const url = $('#url').value.trim();
+  $('#error').hidden = true;
+  if (!url) { $('#error').textContent = 'Escribe la dirección de tu web.'; $('#error').hidden = false; return; }
+  $('#b-buscar').disabled = true; $('#resultado').classList.remove('on'); cargando(true);
+  try {
+    const res = await fetch('/api/auditar', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url }) });
+    const datos = await res.json();
+    if (!res.ok) throw new Error(datos.error || 'No he podido analizar esa web.');
+    auditoriaId = datos.id; urlActual = datos.url;
+    pintar(datos);
+  } catch (e) {
+    $('#error').textContent = e.message; $('#error').hidden = false;
+  } finally { cargando(false); $('#b-buscar').disabled = false; }
+});
+
+async function enviarLead(ev) {
+  ev.preventDefault();
+  const f = ev.target, err = $('#error-lead'), btn = f.querySelector('button');
+  err.hidden = true;
+  const datos = { auditoriaId, nombre: f.nombre.value, email: f.email.value, negocio: f.negocio.value, telefono: f.telefono.value, web: f.web.value, consentimiento: f.consentimiento.checked };
+  btn.disabled = true;
+  try {
+    const res = await fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(datos) });
+    const r = await res.json();
+    if (!res.ok) throw new Error(r.error || 'No se ha podido enviar.');
+    f.hidden = true; $('#gracias').style.display = 'block';
+  } catch (e) { err.textContent = e.message; err.hidden = false; btn.disabled = false; }
+}
+
+// ?url=… para enlazar directamente con una web (útil en mensajes a clientes)
+const pre = new URLSearchParams(location.search).get('url');
+if (pre) { $('#url').value = pre; }
+</script>
+</body>
+</html>

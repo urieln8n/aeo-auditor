@@ -1,0 +1,23 @@
+{
+  // Auditor AEO web: aeo.andresrendon.com
+  "name": "aeo-auditor",
+  "main": "src/worker.mjs",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+  "d1_databases": [
+    // Sustituye database_id por el que te da: npx wrangler d1 create aeo-auditor
+    { "binding": "DB", "database_name": "aeo-auditor", "database_id": "PON_AQUI_EL_ID_DE_D1" }
+  ],
+  "vars": {
+    "MAX_PAGINAS": "3",
+    "LIMITE_DIA_IP": "10",
+    "HORAS_CACHE": "12"
+  },
+  "observability": { "enabled": true }
+  // Secretos (npx wrangler secret put NOMBRE -c web/wrangler.jsonc):
+  //   SAL            texto aleatorio para anonimizar IPs (obligatorio)
+  //   CLAVE_ADMIN    para descargar los contactos en /api/leads?clave=...
+  //   BREVO_API_KEY  opcional: manda cada contacto a Brevo
+  //   BREVO_LISTA    opcional: id numérico de la lista de Brevo
+}

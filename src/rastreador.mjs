@@ -1,6 +1,5 @@
 // Doble pasada: A = fetch puro sin JavaScript (lo que ve GPTBot) · B = Playwright con render (lo que ve una persona).
 import { XMLParser } from 'fast-xml-parser';
-import { existsSync } from 'node:fs';
 import { pedir, fijarIntervalo, UA_AUDITOR } from './http.mjs';
 import { analizarRobots, grupoPara, permitido } from './robots.mjs';
 import { extraer } from './extraer.mjs';
@@ -17,15 +16,6 @@ async function leerSitemap(url, profundidad = 0, out = []) {
   if (doc.sitemapindex) for (const s of lista(doc.sitemapindex.sitemap)) await leerSitemap(s.loc, profundidad + 1, out);
   if (doc.urlset) for (const u of lista(doc.urlset.url)) out.push({ loc: String(u.loc).trim(), lastmod: u.lastmod || null });
   return out;
-}
-
-async function abrirNavegador() {
-  const { chromium } = await import('playwright');
-  try { return await chromium.launch(); } catch {}
-  const rutas = [process.env.CHROME_PATH, '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
-    'C:/Program Files/Google/Chrome/Application/chrome.exe', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'].filter(Boolean);
-  for (const p of rutas) if (existsSync(p)) return chromium.launch({ executablePath: p });
-  return chromium.launch({ channel: 'chrome' });
 }
 
 function comparar(a, b) {
@@ -46,7 +36,13 @@ function comparar(a, b) {
   };
 }
 
-export async function rastrear(urlInicio, { max = 25, render = true, verbose = false } = {}) {
+/**
+ * @param {object} o
+ * @param {() => Promise<any>} [o.abrirNavegador]  devuelve un navegador Playwright para la pasada B; sin él, solo pasada A
+ *                                                (así el motor funciona también en Cloudflare Workers)
+ */
+export async function rastrear(urlInicio, { max = 25, abrirNavegador = null, verbose = false, intervaloMs = null } = {}) {
+  if (intervaloMs != null) fijarIntervalo(intervaloMs);
   const log = (...m) => verbose && console.log('  ·', ...m);
   const inicio = new URL(urlInicio);
   const origen = inicio.origin;
@@ -79,7 +75,7 @@ export async function rastrear(urlInicio, { max = 25, render = true, verbose = f
   for (const s of sitemap) if (s.loc.startsWith(origen) && esHtml(s.loc)) cola.push(s.loc);
   const vistas = new Set();
   const paginas = [];
-  const navegador = render ? await abrirNavegador() : null;
+  const navegador = abrirNavegador ? await abrirNavegador() : null;
 
   try {
     while (cola.length && paginas.length < max) {

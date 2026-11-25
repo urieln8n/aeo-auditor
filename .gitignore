@@ -3,3 +3,4 @@ clientes/*
 !clientes/.gitkeep
 .env
 *.tmp.mjs
+.wrangler/

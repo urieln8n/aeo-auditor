@@ -79,6 +79,32 @@ Cada auditoría mira también, sin que cuente para la nota:
 
 Y propone las acciones concretas en el informe. Se desactiva con `--sin-agente`.
 
+## Versión web (aeo.andresrendon.com)
+
+Carpeta `web/`: un Cloudflare Worker con el MISMO motor, solo pasada A (lo que ve la IA), máx. 3 páginas.
+El negocio mete su URL → ve su nota y sus 3 fallos → deja nombre y email para el informe completo,
+que haces tú con el auditor del PC (doble pasada) y le llamas.
+
+Publicarla (una vez, desde el PC):
+
+```bash
+npx wrangler login
+npx wrangler d1 create aeo-auditor                      # copia el database_id en web/wrangler.jsonc
+npx wrangler d1 execute aeo-auditor --remote --file web/schema.sql -c web/wrangler.jsonc
+npx wrangler secret put SAL -c web/wrangler.jsonc         # un texto aleatorio largo
+npx wrangler secret put CLAVE_ADMIN -c web/wrangler.jsonc # tu clave para descargar contactos
+npm run web:deploy
+```
+
+Después, en Cloudflare → Workers → aeo-auditor → Settings → Domains → `aeo.andresrendon.com`.
+
+- Contactos: `https://aeo.andresrendon.com/api/leads?clave=TU_CLAVE` (CSV para Excel).
+- Brevo (opcional): secretos `BREVO_API_KEY` y `BREVO_LISTA` (id de la lista). Si tu cuenta usa
+  el atributo `NOMBRE` en vez de `FIRSTNAME`, añade la variable `BREVO_ATRIBUTO_NOMBRE`.
+- Límites: 10 auditorías por persona y día; el mismo dominio se cachea 12 h (en `vars`).
+- Enlace directo para mensajes: `https://aeo.andresrendon.com/?url=su-web.com`.
+- En local: `npm run web:dev` (añade `--var ALLOW_LOCAL:1` para auditar webs de 127.0.0.1).
+
 ## Cambiar la marca
 
 Todo lo visible está en `marca.json` (nombre, empresa, web, colores, tipografías). Si lo borras,

@@ -77,6 +77,13 @@ Search/Agent/Training del panel no se ven desde fuera: se revisan con el cliente
 Venta: las webs de Andrés ya están en Cloudflare → activar Markdown for Agents, Search y Agent
 en Allow y `Content-Signal: search=yes, ai-input=yes`, y volver a auditar para enseñar el salto.
 
+## Versión web (web/)
+
+Worker de Cloudflare que reutiliza `src/` sin Playwright (`rastrear` sin `abrirNavegador`).
+Nada de `node:fs` en `src/` salvo en auditar/informe/servidor-local/render-playwright: el Worker
+no tiene disco. Los JSON se importan con `with { type: 'json' }`. Los contactos van a D1 (`leads`)
+y, si hay secretos, a Brevo. Cada contacto nuevo = una auditoría completa en el PC y una llamada.
+
 ## Fase 2 (preparada, no construida)
 
 `src/citas/interfaz.mjs`: medir si los modelos citan al cliente. Perplexity primero. Ejecutar

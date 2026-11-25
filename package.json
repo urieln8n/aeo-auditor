@@ -3,15 +3,22 @@
   "version": "1.0.0",
   "description": "Auditor de Answer Engine Optimization: ¿pueden ChatGPT, Perplexity, Claude y Gemini leer y citar tu web?",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "auditar": "node src/auditar.mjs",
     "informe": "node src/informe.mjs",
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "web:dev": "wrangler dev -c web/wrangler.jsonc",
+    "web:deploy": "wrangler deploy -c web/wrangler.jsonc"
   },
   "dependencies": {
     "cheerio": "^1.0.0",
     "fast-xml-parser": "^5.0.0",
     "playwright": "^1.50.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.168.0"
   }
 }

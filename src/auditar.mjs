@@ -55,7 +55,8 @@ if (o.simularBots) console.log('⚠️  --simular-bots: úsalo SOLO con autoriza
 console.log(`\nAuditando ${local ? o.objetivo + ' (local)' : url} · cliente: ${cliente}`);
 
 try {
-  const rastreo = await rastrear(url, { max: o.max, render: o.render, verbose: o.verbose });
+  const { abrirNavegador } = o.render ? await import('./render-playwright.mjs') : {};
+  const rastreo = await rastrear(url, { max: o.max, abrirNavegador, verbose: o.verbose });
   if (!rastreo.paginas.some((p) => p.A)) throw new Error(`No se pudo leer ninguna página (${rastreo.paginas[0]?.error || 'sin respuesta'})`);
   console.log(`  ${rastreo.paginas.length} páginas rastreadas`);
 

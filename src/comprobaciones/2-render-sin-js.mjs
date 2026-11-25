@@ -6,7 +6,12 @@ export async function evaluar({ rastreo }) {
   const home = portada(rastreo);
   if (!pags.length) {
     e.datos.sinRender = true;
-    e.check('Contenido legible en crudo (sin render no se puede comparar)', 100, home ? Math.min(1, home.A.palabras / 300) : 0);
+    const pags0 = paginasOk(rastreo);
+    e.datos.palabrasCrudoPortada = home?.A.palabras ?? 0;
+    e.check('Contenido legible sin JavaScript', 70, home ? Math.min(1, home.A.palabras / 300) : 0);
+    e.check('Enlaces descubribles sin JavaScript', 30, home ? Math.min(1, home.A.enlaces.length / 3) : 0);
+    if (home && home.A.palabras < 50) e.hallazgo({ severidad: 'critico', titulo: `Sin JavaScript, la IA solo lee ${home.A.palabras} palabras de tu portada`, detalle: 'Tu web se construye con JavaScript en el navegador. Los crawlers de ChatGPT, Perplexity o Claude no lo ejecutan: para ellos la página está casi vacía.', evidencia: { url: home.url, fragmento: `${home.A.palabras} palabras en el HTML que recibe la IA` }, esfuerzo: '1–3 días (SSR o HTML estático)', arreglo: 'Servir el contenido en el HTML inicial (SSR, prerender o HTML estático).' });
+    if (home && home.A.enlaces.length === 0 && pags0.length <= 1) e.hallazgo({ severidad: 'critico', titulo: 'Sin JavaScript, la portada no tiene ni un enlace', detalle: 'Un crawler de IA no puede descubrir ninguna otra página de tu web.', evidencia: { url: home.url, fragmento: 'enlaces en el HTML inicial: 0' }, esfuerzo: '1–3 días', arreglo: 'Poner la navegación en el HTML inicial.' });
     return e.cerrar();
   }
 
