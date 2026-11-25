@@ -77,6 +77,10 @@ export function extraer(html, urlBase) {
     if (t) encabezados.push({ nivel: Number(el.tagName[1]), texto: t });
   });
 
+  // Preguntas en desplegables (<details><summary>) o listas de definición (<dt>): también son pares pregunta-respuesta citables
+  const preguntasDesplegables = [];
+  $('summary, dt').each((_, el) => { const t = limpiar($(el).text()); if (t) preguntasDesplegables.push(t); });
+
   const parrafos = [];
   $('p').each((_, el) => { const n = contarPalabras($(el).text()); if (n) parrafos.push(n); });
 
@@ -91,6 +95,7 @@ export function extraer(html, urlBase) {
     palabras: contarPalabras(texto),
     muestra: texto.slice(0, 280),
     encabezados,
+    preguntasDesplegables,
     h1: encabezados.filter((e) => e.nivel === 1).length,
     parrafos,
     listas: $('ul li, ol li').length,

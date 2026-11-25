@@ -9,7 +9,8 @@ export async function evaluar({ rastreo }) {
   const unH1 = pags.filter((p) => p.A.h1 === 1).length / pags.length;
   const conH2 = pags.filter((p) => p.A.encabezados.some((h) => h.nivel === 2)).length / pags.length;
   const todos = pags.flatMap((p) => p.A.encabezados);
-  const preguntas = todos.filter((h) => /\?$|^¿|^(qué|cómo|cuánto|cuándo|dónde|por qué|quién)/i.test(h.texto)).length;
+  const esPregunta = (t) => /\?$|^¿|^(qué|cómo|cuánto|cuándo|dónde|por qué|quién)/i.test(t);
+  const preguntas = todos.filter((h) => esPregunta(h.texto)).length + pags.flatMap((p) => p.A.preguntasDesplegables || []).filter(esPregunta).length;
   const parrafos = pags.flatMap((p) => p.A.parrafos);
   const citables = parrafos.filter((n) => n >= 25 && n <= 120).length;
   const conListas = pags.filter((p) => p.A.listas >= 3 || p.A.tablas > 0).length / pags.length;

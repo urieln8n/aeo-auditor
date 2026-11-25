@@ -63,6 +63,11 @@ export async function rastrear(urlInicio, { max = 25, render = true, verbose = f
   const urlsSitemap = (robots.sitemaps.length ? robots.sitemaps : [`${origen}/sitemap.xml`]).map((s) => { try { return new URL(s, origen).href; } catch { return s; } });
   const sitemap = [];
   for (const s of urlsSitemap) await leerSitemap(s, 0, sitemap);
+  // En local el robots.txt apunta al dominio real: probamos la misma ruta en el servidor local y llevamos las URLs al origen local
+  if (!sitemap.length && /127\.0\.0\.1|localhost/.test(origen)) {
+    for (const s of urlsSitemap) { try { await leerSitemap(origen + new URL(s).pathname, 0, sitemap); } catch {} }
+    for (const s of sitemap) { try { const u = new URL(s.loc); s.loc = origen + u.pathname; } catch {} }
+  }
   log(`sitemap: ${sitemap.length} URLs`);
 
   // llms.txt
@@ -121,5 +126,6 @@ export async function rastrear(urlInicio, { max = 25, render = true, verbose = f
     sitemap: { urls: sitemap.length, lastmods: sitemap.filter((s) => s.lastmod).map((s) => s.lastmod).slice(0, 50), encontrado: sitemap.length > 0, fuentes: urlsSitemap },
     llms: { status: rLlms.status, presente: !!llms, extracto: llms },
     paginas,
+    sitemapsLocalizados: /127\.0\.0\.1|localhost/.test(origen),
   };
 }

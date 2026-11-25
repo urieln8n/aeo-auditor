@@ -19,6 +19,9 @@ export function nuevoEje(id) {
   };
 }
 
-export const paginasOk = (r) => r.paginas.filter((p) => p.A);
-export const portada = (r) => paginasOk(r)[0];
+const esNoindex = (p) => p.A.robotsMeta.includes('noindex') || (p.cabeceras?.['x-robots-tag'] || '').toLowerCase().includes('noindex');
+/** Páginas legibles que el negocio QUIERE que se indexen (las noindex, como un panel interno, no cuentan). La portada va siempre. */
+export const paginasOk = (r) => r.paginas.filter((p, i) => p.A && (i === 0 || !esNoindex(p)));
+export const paginasNoindex = (r) => r.paginas.filter((p, i) => p.A && i > 0 && esNoindex(p)).map((p) => p.url);
+export const portada = (r) => r.paginas.find((p) => p.A);
 export const recorte = (s, n = 140) => (s && s.length > n ? s.slice(0, n) + '…' : s);

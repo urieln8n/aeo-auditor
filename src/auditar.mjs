@@ -6,6 +6,7 @@ import { join, resolve } from 'node:path';
 import { rastrear } from './rastreador.mjs';
 import { servirCarpeta } from './servidor-local.mjs';
 import { puntuar, PESOS } from './puntuacion.mjs';
+import { paginasNoindex } from './comprobaciones/_eje.mjs';
 import { agentReadiness } from './agent-readiness.mjs';
 import { revisarCloudflare } from './cloudflare.mjs';
 import { generarInformes } from './informe.mjs';
@@ -79,6 +80,7 @@ try {
     nota: p.global, banda: p.banda, conteo: p.conteo,
     ejes: ejes.map((e) => ({ ...e, peso: PESOS[e.id].peso })),
     hallazgos: p.hallazgos,
+    paginasExcluidasNoindex: paginasNoindex(rastreo),
     rastreo: { ...rastreo, paginas: rastreo.paginas.map((pg) => (pg.A ? { ...pg, A: { ...pg.A, jsonld: undefined }, B: pg.B ? { ...pg.B, jsonld: undefined, enlaces: pg.B.enlaces.length } : null } : pg)) },
     cloudflare: cf,
     agentReadiness: ar,
